@@ -24,6 +24,7 @@ Run this container alongside your Omada Controller and reference it by container
 services:
   omada-discord:
     container_name: omada-discord
+    image: cjowood/omada-webhook-to-discord:latest
     # ports:
     #   - "8080:8080" #only need to expose if this container is not on the same docker network as your omada controller
     environment:
