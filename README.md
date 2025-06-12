@@ -1,7 +1,7 @@
 # 🌌 Omada Webhook to Discord
+Fork of [Sefinek's original repository](https://github.com/sefinek/Omada-Webhook-to-Discord).
 An easy script for integrating Discord Webhooks with the Omada Controller. It allows sending logs from the controller to a selected Discord channel.
 
-![Discord_gVcpXzaMEdDg.png](images/Discord_gVcpXzaMEdDg.png)
 *ENABLE_DATA_CENSORING=false*
 
 ## Worth Knowing
@@ -27,17 +27,23 @@ POST /discord/webhook
 http://192.168.0.145:8080/discord/webhook
 ```
 
-## Docker
-Build and run the container using Docker:
+## Docker Compose
+Run this container alongside your Omada Controller and reference it by container name in the Controller settings (`http://omada-discord:8080/discord/webhook`).
 
-```bash
-docker build -t omada-discord .
-docker run -d \
-  -p 8080:8080 \
-  -e PORT=8080 \
-  -e SHARD_SECRET=your_secret \
-  -e DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/... \
-  omada-discord
+```yaml
+services:
+  omada-discord:
+    build: .
+    container_name: omada-discord
+    ports:
+      - "8080:8080"
+    environment:
+      NODE_ENV: production
+      PORT: 8080
+      SHARD_SECRET: your_secret
+      ENABLE_DATA_CENSORING: "false"
+      DISCORD_WEBHOOK_URL: https://discord.com/api/webhooks/...
+      DISCORD_ID: "1234567890"
 ```
 
 
