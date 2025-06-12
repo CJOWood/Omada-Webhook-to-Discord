@@ -13,8 +13,8 @@ After running this script, webhooks from your controller should be directed to t
 ```
 POST /discord/webhook
 
-http://omada-discord:8080/discord/webhook
-http://192.168.0.145:8080/discord/webhook
+http://omada-discord:8080/discord/webhook #if on the same docker network as controller
+http://192.168.0.145:8080/discord/webhook #expose port 8080 and use host's ip address
 ```
 
 ## Docker Compose
@@ -23,10 +23,9 @@ Run this container alongside your Omada Controller and reference it by container
 ```yaml
 services:
   omada-discord:
-    build: .
     container_name: omada-discord
-    ports:
-      - "8080:8080" #only need to expose if this container is not on the same network or inthe same stack
+    # ports:
+    #   - "8080:8080" #only need to expose if this container is not on the same docker network as your omada controller
     environment:
       NODE_ENV: production
       PORT: 8080
