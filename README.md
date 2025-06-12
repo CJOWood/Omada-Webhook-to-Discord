@@ -27,5 +27,19 @@ POST /discord/webhook
 http://192.168.0.145:8080/discord/webhook
 ```
 
+## Docker
+Build and run the container using Docker:
+
+```bash
+docker build -t omada-discord .
+docker run -d \
+  -p 8080:8080 \
+  -e PORT=8080 \
+  -e SHARD_SECRET=your_secret \
+  -e DISCORD_WEBHOOK_URL=https://discord.com/api/webhooks/... \
+  omada-discord
+```
+
+
 ## MIT License
 Copyright 2024-2025 © by [Sefinek](https://sefinek.net). All Rights Reserved.
